@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Version Control :: Git",
 ]
-dependencies = ["typer>=0.12"]
+dependencies = ["pydantic>=2.7", "typer>=0.12"]
 
 [project.scripts]
 mergetrail = "mergetrail.cli:app"
@@ -25,7 +25,7 @@ Homepage = "https://github.com/maverickamit/mergetrail"
 Issues = "https://github.com/maverickamit/mergetrail/issues"
 
 [dependency-groups]
-dev = ["pytest>=8.3", "ruff>=0.6"]
+dev = ["pytest>=8.3", "pytest-asyncio>=0.24", "ruff>=0.6"]
 
 [build-system]
 requires = ["hatchling"]
@@ -44,3 +44,4 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+asyncio_mode = "auto"
