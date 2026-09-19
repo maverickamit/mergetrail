@@ -33,6 +33,7 @@ def test_cli_starts_a_loopback_server(monkeypatch, fixture_repo):
     assert result.exit_code == 0, result.output
     assert started["host"] == "127.0.0.1"
     assert started["port"] == 9001
+    assert "http://127.0.0.1:9001" in result.stdout
     assert "GET http://127.0.0.1:9001/review" in result.stdout
     assert "main...feature" in result.stdout or "main...HEAD" in result.stdout
 

@@ -23,7 +23,7 @@ Early. The project is being built in parts:
 | 1 | Python project scaffold | done |
 | 2 | Git layer: three-dot diffs, hunk parsing | done |
 | 3 | FastAPI server and CLI | done |
-| 4 | React review UI | planned |
+| 4 | React review UI | done |
 | 5 | Per-hunk explanation panel | planned |
 | 6 | Bring-your-own-key explanations | planned |
 
@@ -32,23 +32,28 @@ Early. The project is being built in parts:
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/)
 - `git` on your `PATH`
+- Node.js 20+ to build the review UI
 
 ## Development
 
 ```sh
 uv sync
-uv run mergetrail --base main --no-open
+cd ui && npm install && npm run build && cd ..
+uv run mergetrail --base main
 uv run pytest
 uv run ruff check
 ```
 
-With the server running:
+`mergetrail` serves the UI at `http://127.0.0.1:8765` and the JSON API under `/review` and `/files`.
+
+To iterate on the UI without rebuilding:
 
 ```sh
-curl -s http://127.0.0.1:8765/review
-curl -s http://127.0.0.1:8765/files
-curl -s http://127.0.0.1:8765/files/app.py
+uv run mergetrail --base main --no-open
+cd ui && npm run dev
 ```
+
+Vite proxies API calls to port 8765.
 
 ## Layout
 

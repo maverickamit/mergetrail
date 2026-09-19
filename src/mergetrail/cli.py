@@ -55,7 +55,7 @@ def main(
         help="Show the version and exit.",
     ),
 ) -> None:
-    """Serve a local JSON API for the current branch versus `--base`."""
+    """Serve a local review UI for the current branch versus `--base`."""
     try:
         repo_path, resolved_base, resolved_head = asyncio.run(
             _prepare_review(repo or Path.cwd(), base, head)
@@ -69,12 +69,13 @@ def main(
 
     origin = f"http://{DEFAULT_HOST}:{port}"
     typer.echo(f"Reviewing {resolved_base}...{resolved_head} in {repo_path}")
+    typer.echo(origin)
     typer.echo(f"GET {origin}/review")
     typer.echo(f"GET {origin}/files")
     typer.echo(f"GET {origin}/files/{{path}}")
 
     if open_browser:
-        typer.launch(f"{origin}/review")
+        typer.launch(origin)
 
     uvicorn.run(
         create_app(ServerContext(repo=repo_path, base=resolved_base, head=resolved_head)),
