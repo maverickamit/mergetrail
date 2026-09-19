@@ -21,8 +21,8 @@ Early. The project is being built in parts:
 | Part | Scope | State |
 | --- | --- | --- |
 | 1 | Python project scaffold | done |
-| 2 | Git layer: three-dot diffs, hunk parsing | planned |
-| 3 | FastAPI server and CLI | planned |
+| 2 | Git layer: three-dot diffs, hunk parsing | done |
+| 3 | FastAPI server and CLI | done |
 | 4 | React review UI | planned |
 | 5 | Per-hunk explanation panel | planned |
 | 6 | Bring-your-own-key explanations | planned |
@@ -37,9 +37,17 @@ Early. The project is being built in parts:
 
 ```sh
 uv sync
-uv run mergetrail
+uv run mergetrail --base main --no-open
 uv run pytest
 uv run ruff check
+```
+
+With the server running:
+
+```sh
+curl -s http://127.0.0.1:8765/review
+curl -s http://127.0.0.1:8765/files
+curl -s http://127.0.0.1:8765/files/app.py
 ```
 
 ## Layout

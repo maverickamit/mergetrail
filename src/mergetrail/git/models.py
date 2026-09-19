@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 
 
 class ChangeStatus(StrEnum):
@@ -50,10 +50,12 @@ class Review(BaseModel):
     head_sha: str
     files: list[FileChange] = Field(default_factory=list)
 
+    @computed_field
     @property
     def additions(self) -> int:
         return sum(file.additions for file in self.files)
 
+    @computed_field
     @property
     def deletions(self) -> int:
         return sum(file.deletions for file in self.files)
